@@ -16,18 +16,18 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, language = 'en', onLanguage
     <header className="fixed top-0 w-full z-20 bg-white shadow-md font-montserrat">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-2 h-16">
         <span
-          className="font-extrabold text-[20px] md:text-3xl tracking-tight text-[#222] select-none cursor-pointer"
+          className="font-extrabold text-[20px] md:text-2xl tracking-tight text-[#222] select-none cursor-pointer"
           style={{ letterSpacing: '-1px' }}
           onClick={() => onNavigate('home')}
         >
           Crowdfunding <span className="text-[#eb1478]">Prosperity</span>
         </span>
-  <nav className="hidden md:flex gap-2 lg:gap-4 items-center">
-          <button className="px-4 py-2 rounded-full font-semibold text-white hover:text-[#eb1478] transition-colors" onClick={() => onNavigate('home')}>Home</button>
-          <button className="px-4 py-2 rounded-full font-semibold text-white hover:text-[#eb1478] transition-colors" onClick={() => onNavigate('projects')}>Projects</button>
-          <button className="px-4 py-2 rounded-full font-semibold text-white hover:text-[#eb1478] transition-colors" onClick={() => onNavigate('start-project')}>Start Project</button>
-          <button className="px-4 py-2 rounded-full font-semibold text-white hover:text-[#eb1478] transition-colors" onClick={() => onNavigate('dashboard')}>Dashboard</button>
-          <button className="px-4 py-2 rounded-full font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('login')}>Login</button>
+  <nav className="hidden md:flex gap-2 lg:gap-4 items-center ml-2">
+          <button className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('home')}>Home</button>
+          <button className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('projects')}>Projects</button>
+          <button className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('start-project')}>Start Project</button>
+          <button className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('dashboard')}>Dashboard</button>
+          <button className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('login')}>Login</button>
           {/* Language Switcher */}
           <select
             className="ml-4 px-3 py-1 rounded-full border border-gray-300 text-[#222] bg-white focus:outline-none focus:ring-2 focus:ring-[#eb1478]"
