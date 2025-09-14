@@ -1,16 +1,16 @@
 // src/pages/Home.tsx
 
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { FaRocket, FaUsers, FaChartLine, FaHandHoldingUsd, FaRegLightbulb, FaRegCheckCircle } from 'react-icons/fa';
 
 
 const stats = [
-  { label: 'Founders', value: '1', icon: <FaUsers /> },
-  { label: 'Investors', value: '0', icon: <FaHandHoldingUsd /> },
-  { label: 'Raised', value: '0 AED', icon: <FaChartLine /> },
-  { label: 'Live', value: '1', icon: <FaRegCheckCircle /> },
-  { label: 'Funds', value: '0 AED', icon: <FaRegLightbulb /> },
-  { label: 'Running', value: '1', icon: <FaRocket /> },
+  { label: 'Founders', value: 120, icon: <FaUsers /> },
+  { label: 'Investors', value: 300, icon: <FaHandHoldingUsd /> },
+  { label: 'Raised', value: 50000, suffix: ' AED', icon: <FaChartLine /> },
+  { label: 'Live', value: 15, icon: <FaRegCheckCircle /> },
+  { label: 'Funds', value: 120000, suffix: ' AED', icon: <FaRegLightbulb /> },
+  { label: 'Running', value: 8, icon: <FaRocket /> },
 ];
 
 const fundingStages = [
@@ -39,6 +39,43 @@ const Home: React.FC<HomeProps> = ({ onNavigate, language = 'en' }) => {
   }, [language]);
 
   const isArabic = language === 'ar';
+  // Animated count-up logic
+  const statsRef = useRef<HTMLDivElement>(null);
+  const [startCount, setStartCount] = useState(false);
+  const [counts, setCounts] = useState(stats.map(() => 0));
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!statsRef.current) return;
+      const rect = statsRef.current.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        setStartCount(true);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!startCount) return;
+    let frame: number;
+    const duration = 2000; // ms
+    const start = performance.now();
+    const animate = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      setCounts(stats.map(s => Math.floor(progress * s.value)));
+      if (progress < 1) {
+        frame = requestAnimationFrame(animate);
+      } else {
+        setCounts(stats.map(s => s.value));
+      }
+    };
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+    // eslint-disable-next-line
+  }, [startCount]);
+
   return (
     <section
       id="main-home-section"
@@ -48,7 +85,9 @@ const Home: React.FC<HomeProps> = ({ onNavigate, language = 'en' }) => {
     <div className="max-w-5xl mx-auto px-4">
       {/* Intro Section */}
       <div className="mb-12 text-center flex flex-col items-center">
-        <h1 className="text-5xl md:text-6xl font-extrabold text-[#222] mb-4 leading-tight tracking-tight drop-shadow-sm" style={{letterSpacing: '-1px'}}>
+        <h1 className="text-5xl md:text-6xl font-extrabold text-[#222] mb-4 leading-tight tracking-tight drop-shadow-sm"     style={{
+        fontFamily: "'Montserrat', system-ui, Avenir, Helvetica, Arial, sans-serif", letterSpacing: '-1px'
+      }}>
           <span data-en="Crowdfunding" data-ar="التمويل الجماعي">Crowdfunding</span> <span className="text-[#eb1478]" data-en="Prosperity" data-ar="الازدهار">Prosperity</span>
         </h1>
         <p className="text-lg md:text-xl text-gray-600 mb-6 max-w-2xl font-medium">
@@ -147,13 +186,15 @@ const Home: React.FC<HomeProps> = ({ onNavigate, language = 'en' }) => {
         </p>
       </div>
       {/* Platform Statistics */}
-      <div className="bg-white rounded-3xl shadow-xl p-8 mb-12 border border-gray-100">
-  <h2 className="text-2xl font-bold text-[#222] mb-6 text-center tracking-tight" data-en="Platform Statistics" data-ar="إحصائيات المنصة">Platform Statistics</h2>
+      <div ref={statsRef} className="bg-white rounded-3xl shadow-xl p-8 mb-12 border border-gray-100">
+        <h2 className="text-2xl font-bold text-[#222] mb-6 text-center tracking-tight" data-en="Platform Statistics" data-ar="إحصائيات المنصة">Platform Statistics</h2>
         <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
           {stats.map((stat, i) => (
             <div key={stat.label} className="flex flex-col items-center justify-center p-3 animate-fade-in-up">
               <span className="text-3xl text-[#eb1478] mb-2">{stat.icon}</span>
-              <span className="text-2xl font-extrabold text-[#222] mb-1">{stat.value}</span>
+              <span className="text-2xl font-extrabold text-[#222] mb-1">
+                {counts[i].toLocaleString()}{stat.suffix || ''}
+              </span>
               <span className="text-sm font-medium text-gray-600" data-en={stat.label} data-ar={
                 [
                   "المؤسسون", "المستثمرون", "المبلغ المجموع", "مشاريع نشطة", "الأموال", "قيد التشغيل"

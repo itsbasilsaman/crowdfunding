@@ -1,5 +1,6 @@
 // src/components/Header.tsx
 import React, { useState } from 'react';
+// You can use emoji flags for a simple visual improvement
 
 type HeaderProps = {
   onNavigate: (page: string) => void;
@@ -9,9 +10,6 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ onNavigate, language = 'en', onLanguageChange }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    if (onLanguageChange) onLanguageChange(e.target.value as 'en' | 'ar');
-  };
   return (
     <header className="fixed top-0 w-full z-20 bg-white shadow-md font-montserrat">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-2 h-16">
@@ -28,16 +26,25 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, language = 'en', onLanguage
           <button className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('start-project')}>Start Project</button>
           <button className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('dashboard')}>Dashboard</button>
           <button className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('login')}>Login</button>
-          {/* Language Switcher */}
-          <select
-            className="ml-4 px-3 py-1 rounded-full border border-gray-300 text-[#222] bg-white focus:outline-none focus:ring-2 focus:ring-[#eb1478]"
-            value={language}
-            onChange={handleLanguageChange}
-            aria-label="Select language"
-          >
-            <option value="en">English</option>
-            <option value="ar">العربية</option>
-          </select>
+          {/* Language Switcher - Redesigned */}
+          <div className="ml-4 flex items-center gap-1 bg-gray-100 rounded-full px-1 py-1 border border-gray-200 shadow-inner">
+            <button
+              className={`flex items-center gap-1 px-3 py-1 rounded-full transition-all duration-200 text-sm font-semibold focus:outline-none ${language === 'en' ? 'bg-[#eb1478] text-white shadow' : 'bg-white text-[#eb1478] hover:bg-gray-200 border border-[#eb1478]'}`}
+              style={{ minWidth: 60 }}
+              onClick={() => onLanguageChange && onLanguageChange('en')}
+              aria-pressed={language === 'en'}
+            >
+              EN
+            </button>
+            <button
+              className={`flex items-center gap-1 px-3 py-1 rounded-full transition-all duration-200 text-sm font-semibold focus:outline-none ${language === 'ar' ? 'bg-[#eb1478] text-white shadow' : 'bg-white text-[#eb1478] hover:bg-gray-200 border border-[#eb1478]'}`}
+              style={{ minWidth: 60 }}
+              onClick={() => onLanguageChange && onLanguageChange('ar')}
+              aria-pressed={language === 'ar'}
+            >
+              العربية
+            </button>
+          </div>
         </nav>
         {/* Mobile menu button */}
         <div
@@ -57,16 +64,25 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, language = 'en', onLanguage
             <button className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('start-project'); }}>Start Project</button>
             <button className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('dashboard'); }}>Dashboard</button>
             <button className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('login'); }}>Login</button>
-            {/* Language Switcher for mobile */}
-            <select
-              className="mt-2 px-3 py-1 rounded-full border border-gray-300 text-[#222] bg-white focus:outline-none focus:ring-2 focus:ring-[#eb1478]"
-              value={language}
-              onChange={handleLanguageChange}
-              aria-label="Select language"
-            >
-              <option value="en">English</option>
-              <option value="ar">العربية</option>
-            </select>
+            {/* Language Switcher for mobile - Redesigned */}
+            <div className="mt-2 flex items-center gap-1 bg-gray-100 rounded-full px-1 py-1 border border-gray-200 shadow-inner">
+              <button
+                className={`flex items-center gap-1 px-3 py-1 rounded-full transition-all duration-200 text-sm font-semibold focus:outline-none ${language === 'en' ? 'bg-[#eb1478] text-white shadow' : 'bg-white text-[#eb1478] hover:bg-gray-200 border border-[#eb1478]'}`}
+                style={{ minWidth: 60 }}
+                onClick={() => onLanguageChange && onLanguageChange('en')}
+                aria-pressed={language === 'en'}
+              >
+                EN
+              </button>
+              <button
+                className={`flex items-center gap-1 px-3 py-1 rounded-full transition-all duration-200 text-sm font-semibold focus:outline-none ${language === 'ar' ? 'bg-[#eb1478] text-white shadow' : 'bg-white text-[#eb1478] hover:bg-gray-200 border border-[#eb1478]'}`}
+                style={{ minWidth: 60 }}
+                onClick={() => onLanguageChange && onLanguageChange('ar')}
+                aria-pressed={language === 'ar'}
+              >
+                العربية
+              </button>
+            </div>
           </div>
         </nav>
       )}
