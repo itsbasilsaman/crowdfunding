@@ -52,11 +52,11 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, language = 'en', onLanguage
       {mobileOpen && (
         <nav className="md:hidden bg-white shadow-lg border-t border-gray-100 animate-fade-in-down">
           <div className="flex flex-col gap-2 px-4 py-4">
-            <button className="py-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('home'); }}>Home</button>
-            <button className="py-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('projects'); }}>Projects</button>
-            <button className="py-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('start-project'); }}>Start Project</button>
-            <button className="py-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('dashboard'); }}>Dashboard</button>
-            <button className="py-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('login'); }}>Login</button>
+            <button className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('home'); }}>Home</button>
+            <button className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('projects'); }}>Projects</button>
+            <button className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('start-project'); }}>Start Project</button>
+            <button className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('dashboard'); }}>Dashboard</button>
+            <button className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('login'); }}>Login</button>
             {/* Language Switcher for mobile */}
             <select
               className="mt-2 px-3 py-1 rounded-full border border-gray-300 text-[#222] bg-white focus:outline-none focus:ring-2 focus:ring-[#eb1478]"
