@@ -10,6 +10,16 @@ type HeaderProps = {
 
 const Header: React.FC<HeaderProps> = ({ onNavigate, language = 'en', onLanguageChange }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  // Localization dictionary
+  const dict = {
+    home: { en: 'Home', ar: 'الرئيسية' },
+    projects: { en: 'Projects', ar: 'المشاريع' },
+    startProject: { en: 'Start Project', ar: 'ابدأ مشروع' },
+    dashboard: { en: 'Dashboard', ar: 'لوحة التحكم' },
+    login: { en: 'Login', ar: 'تسجيل الدخول' },
+    prosperity: { en: 'Prosperity', ar: 'الازدهار' },
+    crowdfunding: { en: 'Crowdfunding', ar: 'تمويل الجماعي' },
+  };
   return (
     <header className="fixed top-0 w-full z-20 bg-white shadow-md font-montserrat">
       <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-2 h-16">
@@ -18,14 +28,29 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, language = 'en', onLanguage
           style={{ letterSpacing: '-1px' }}
           onClick={() => onNavigate('home')}
         >
-          Crowdfunding <span className="text-[#eb1478]">Prosperity</span>
+          <span data-en={dict.crowdfunding.en}  >
+            { dict.crowdfunding.en}
+          </span>{' '}
+          <span className="text-[#eb1478]" data-en={dict.prosperity.en}  >
+            { dict.prosperity.en}
+          </span>
         </span>
-  <nav className="hidden md:flex gap-2 lg:gap-4 items-center ml-2">
-          <button className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('home')}>Home</button>
-          <button className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('projects')}>Projects</button>
-          <button className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('start-project')}>Start Project</button>
-          <button className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('dashboard')}>Dashboard</button>
-          <button className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('login')}>Login</button>
+        <nav className="hidden md:flex gap-2 lg:gap-4 items-center ml-2">
+          <button data-en={dict.home.en} data-ar={dict.home.ar} className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('home')}>
+            {language === 'ar' ? dict.home.ar : dict.home.en}
+          </button>
+          <button data-en={dict.projects.en} data-ar={dict.projects.ar} className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('projects')}>
+            {language === 'ar' ? dict.projects.ar : dict.projects.en}
+          </button>
+          <button data-en={dict.startProject.en} data-ar={dict.startProject.ar} className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('start-project')}>
+            {language === 'ar' ? dict.startProject.ar : dict.startProject.en}
+          </button>
+          <button data-en={dict.dashboard.en} data-ar={dict.dashboard.ar} className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('dashboard')}>
+            {language === 'ar' ? dict.dashboard.ar : dict.dashboard.en}
+          </button>
+          <button data-en={dict.login.en} data-ar={dict.login.ar} className="px-4 py-2 rounded-full font-semibold text-black bg-[#eb1478] hover:bg-[#c0105e] shadow transition-colors" onClick={() => onNavigate('login')}>
+            {language === 'ar' ? dict.login.ar : dict.login.en}
+          </button>
           {/* Language Switcher - Redesigned */}
           <div className="ml-4 flex items-center gap-1 bg-gray-100 rounded-full px-1 py-1 border border-gray-200 shadow-inner">
             <button
@@ -33,6 +58,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, language = 'en', onLanguage
               style={{ minWidth: 60 }}
               onClick={() => onLanguageChange && onLanguageChange('en')}
               aria-pressed={language === 'en'}
+              data-en="EN" data-ar="EN"
             >
               EN
             </button>
@@ -41,6 +67,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, language = 'en', onLanguage
               style={{ minWidth: 60 }}
               onClick={() => onLanguageChange && onLanguageChange('ar')}
               aria-pressed={language === 'ar'}
+              data-en="العربية" data-ar="العربية"
             >
               العربية
             </button>
@@ -59,11 +86,11 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, language = 'en', onLanguage
       {mobileOpen && (
         <nav className="md:hidden bg-white shadow-lg border-t border-gray-100 animate-fade-in-down">
           <div className="flex flex-col gap-2 px-4 py-4">
-            <button className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('home'); }}>Home</button>
-            <button className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('projects'); }}>Projects</button>
-            <button className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('start-project'); }}>Start Project</button>
-            <button className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('dashboard'); }}>Dashboard</button>
-            <button className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('login'); }}>Login</button>
+            <button data-en={dict.home.en} data-ar={dict.home.ar} className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('home'); }}>{language === 'ar' ? dict.home.ar : dict.home.en}</button>
+            <button data-en={dict.projects.en} data-ar={dict.projects.ar} className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('projects'); }}>{language === 'ar' ? dict.projects.ar : dict.projects.en}</button>
+            <button data-en={dict.startProject.en} data-ar={dict.startProject.ar} className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('start-project'); }}>{language === 'ar' ? dict.startProject.ar : dict.startProject.en}</button>
+            <button data-en={dict.dashboard.en} data-ar={dict.dashboard.ar} className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('dashboard'); }}>{language === 'ar' ? dict.dashboard.ar : dict.dashboard.en}</button>
+            <button data-en={dict.login.en} data-ar={dict.login.ar} className="p-2 rounded font-semibold text-white bg-[#eb1478] hover:bg-[#c0105e] shadow text-left" onClick={() => { setMobileOpen(false); onNavigate('login'); }}>{language === 'ar' ? dict.login.ar : dict.login.en}</button>
             {/* Language Switcher for mobile - Redesigned */}
             <div className="mt-2 flex items-center gap-1 bg-gray-100 rounded-full px-1 py-1 border border-gray-200 shadow-inner">
               <button
@@ -71,6 +98,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, language = 'en', onLanguage
                 style={{ minWidth: 60 }}
                 onClick={() => onLanguageChange && onLanguageChange('en')}
                 aria-pressed={language === 'en'}
+                data-en="EN" data-ar="EN"
               >
                 EN
               </button>
@@ -79,6 +107,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, language = 'en', onLanguage
                 style={{ minWidth: 60 }}
                 onClick={() => onLanguageChange && onLanguageChange('ar')}
                 aria-pressed={language === 'ar'}
+                data-en="AR" data-ar="العربية"
               >
                 العربية
               </button>

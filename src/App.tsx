@@ -48,10 +48,10 @@ const App: React.FC = () => {
             <main className="min-h-screen bg-white">
               <Routes>
                 <Route path="/" element={<Home onNavigate={onNavigate} language={language} />} />
-                <Route path="/projects" element={<Projects onViewDetails={setSelectedProject} />} />
+                <Route path="/projects" element={<Projects onViewDetails={setSelectedProject} language={language} />} />
                 <Route path="/project-details" element={selectedProject ? <ProjectDetails project={selectedProject} onBack={() => onNavigate("projects")} /> : <Home onNavigate={onNavigate} language={language} />} />
                 <Route path="/invest" element={<Invest />} />
-                <Route path="/start-project" element={<StartProject />} />
+                <Route path="/start-project" element={<StartProject language={language} />} />
                 <Route path="/admin-panel" element={<AdminPanel />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/feedback" element={<Feedback />} />
