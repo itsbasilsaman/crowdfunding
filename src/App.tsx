@@ -24,7 +24,7 @@ import type { Project } from "./data/projects";
 
 const App: React.FC = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-
+  const [language, setLanguage] = useState<'en' | 'ar'>('en');
 
   // Navigation handler for Header/Footer using React Router
   // We'll use a wrapper component to provide useNavigate to Header/Footer
@@ -43,13 +43,13 @@ const App: React.FC = () => {
       <NavigationWrapper>
         {(onNavigate) => (
           <>
-            <Header onNavigate={onNavigate} />
+            <Header onNavigate={onNavigate} language={language} onLanguageChange={setLanguage} />
             {/* Remove flex and side area, keep only header, main, and footer with white background */}
             <main className="min-h-screen bg-white">
               <Routes>
-                <Route path="/" element={<Home onNavigate={onNavigate} />} />
+                <Route path="/" element={<Home onNavigate={onNavigate} language={language} />} />
                 <Route path="/projects" element={<Projects onViewDetails={setSelectedProject} />} />
-                <Route path="/project-details" element={selectedProject ? <ProjectDetails project={selectedProject} onBack={() => onNavigate("projects")} /> : <Home onNavigate={onNavigate} />} />
+                <Route path="/project-details" element={selectedProject ? <ProjectDetails project={selectedProject} onBack={() => onNavigate("projects")} /> : <Home onNavigate={onNavigate} language={language} />} />
                 <Route path="/invest" element={<Invest />} />
                 <Route path="/start-project" element={<StartProject />} />
                 <Route path="/admin-panel" element={<AdminPanel />} />
